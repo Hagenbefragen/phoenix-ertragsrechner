@@ -600,7 +600,7 @@ input:checked + .slider:before {
 }
 
 #calc-popover {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     width: 320px;
     background: rgba(15, 20, 30, 0.95);
@@ -740,6 +740,9 @@ input:checked + .slider:before {
     #calc-popover.mobile-active {
         width: calc(100vw - 40px) !important;
         left: 20px !important;
+        top: auto !important;
+        bottom: 20px !important;
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.9), 0 0 20px rgba(212,175,55,0.3);
     }
     .v2g-header {
         flex-direction: column;
