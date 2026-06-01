@@ -21,55 +21,70 @@
                 </svg>
                 <h1>PHOENIX RENT <span class="subtitle">Ertragsrechner (4 Säulen Modell)</span></h1>
             </div>
-            <div class="market-toggle">
-                <span class="active" id="btn-at">Österreich</span>
-                <span id="btn-de">Deutschland</span>
+            <div class="header-actions">
+                <button class="btn-pdf" onclick="window.print()">📥 Als PDF speichern</button>
+                <div class="market-toggle">
+                    <span class="active" id="btn-at">Österreich</span>
+                    <span id="btn-de">Deutschland</span>
+                </div>
             </div>
         </header>
 
         <!-- Global Inputs (Top Bar) -->
         <section class="global-inputs glass-panel">
-            <div class="input-section">
-                <h3>Grunddaten & Anlage</h3>
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="carValue">Listenpreis / Kaution (€)</label>
-                        <input type="number" id="carValue" value="50000" step="1000">
-                    </div>
-                    <div class="input-group">
-                        <label for="bankInterest">Bankzins p.a. (%)</label>
-                        <input type="number" id="bankInterest" value="6.0" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label for="investmentReturn">Anlagezins p.a. (%)</label>
-                        <input type="number" id="investmentReturn" value="2.0" step="0.1">
-                    </div>
+            
+            <div class="preset-wrapper">
+                <h3>Schnellauswahl: Wähle dein Szenario</h3>
+                <div class="preset-buttons">
+                    <button class="btn-preset" data-type="porsche">🏎️ Luxus-Sportwagen <small>(z.B. Porsche Taycan, 110k €)</small></button>
+                    <button class="btn-preset" data-type="suv">🚙 Familien-SUV <small>(z.B. Tesla Model Y, 55k €)</small></button>
+                    <button class="btn-preset" data-type="kompakt">🚗 Kompakt-Stromer <small>(z.B. VW ID.3, 35k €)</small></button>
                 </div>
             </div>
-            <div class="input-section">
-                <h3>Fahrzeug Details</h3>
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="motorKw">Leistung (kW)</label>
-                        <input type="number" id="motorKw" value="150" step="10">
+
+            <div class="inputs-grid">
+                <div class="input-section">
+                    <h3>Grunddaten & Anlage</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="carValue">Listenpreis / Kaution (€)</label>
+                            <input type="number" id="carValue" value="50000" step="1000">
+                        </div>
+                        <div class="input-group">
+                            <label for="bankInterest">Bankzins p.a. (%) <span class="tooltip" title="Zinsatz deines Bankkredits für die 100% Phoenix-Kaution">?</span></label>
+                            <input type="number" id="bankInterest" value="6.0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="investmentReturn">Anlagezins p.a. (%) <span class="tooltip" title="Rendite, die du erhältst, wenn du gespartes Geld (z.B. beim Leasing/Abo) am Kapitalmarkt anlegst">?</span></label>
+                            <input type="number" id="investmentReturn" value="2.0" step="0.1">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="isElectric">Fahrzeugtyp</label>
-                        <select id="isElectric">
-                            <option value="yes" selected>Elektroauto</option>
-                            <option value="no">Verbrenner</option>
-                        </select>
-                    </div>
-                    <div class="input-group v2g-input">
-                        <label for="batteryCap">Akku (kWh)</label>
-                        <input type="number" id="batteryCap" value="80" step="5">
-                    </div>
-                    <div class="input-group v2g-input">
-                        <label for="chargeSpeed">Ladeleistung</label>
-                        <select id="chargeSpeed">
-                            <option value="11">11 kW</option>
-                            <option value="22" selected>22 kW</option>
-                        </select>
+                </div>
+                <div class="input-section">
+                    <h3>Fahrzeug Details</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="motorKw">Leistung (kW)</label>
+                            <input type="number" id="motorKw" value="150" step="10">
+                        </div>
+                        <div class="input-group">
+                            <label for="isElectric">Fahrzeugtyp</label>
+                            <select id="isElectric">
+                                <option value="yes" selected>Elektroauto</option>
+                                <option value="no">Verbrenner</option>
+                            </select>
+                        </div>
+                        <div class="input-group v2g-input">
+                            <label for="batteryCap">Akku (kWh)</label>
+                            <input type="number" id="batteryCap" value="80" step="5">
+                        </div>
+                        <div class="input-group v2g-input">
+                            <label for="chargeSpeed">Ladeleistung</label>
+                            <select id="chargeSpeed">
+                                <option value="11">11 kW</option>
+                                <option value="22" selected>22 kW</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,9 +133,12 @@
                                 <span class="out-v2g">+ 0 €</span>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <span>Mtl. Nettogewinn</span>
-                            <span id="out-pr-netto" class="total-value highlight">+ 0 €</span>
+                        <div class="card-footer" style="flex-direction: column; gap: 1rem; align-items: stretch;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <span>Mtl. Nettogewinn</span>
+                                <span id="out-pr-netto" class="total-value highlight">+ 0 €</span>
+                            </div>
+                            <a href="mailto:info@phoenix-rent.ag?subject=Anfrage%20Ertragsrechner" class="btn-cta">🚀 Jetzt Beratung anfordern</a>
                         </div>
                         <div class="card-note">Tausch gegen Neuwagen alle 12 Monate</div>
                     </div>
@@ -308,6 +326,7 @@
             </section>
         </main>
     </div>
+    <!-- Load obfuscated logic -->
     <script src="app.obf.js"></script>
 </body>
 </html>
