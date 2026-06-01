@@ -51,11 +51,11 @@
                             <input type="number" id="carValue" value="50000" step="1000">
                         </div>
                         <div class="input-group">
-                            <label for="bankInterest">Bankzins p.a. (%) <span class="tooltip" title="Zinsatz deines Bankkredits für die 100% Phoenix-Kaution">?</span></label>
+                            <label for="bankInterest">Bankzins p.a. (%) <span class="tooltip" data-tooltip="Zinsatz deines Bankkredits für die 100% Phoenix-Kaution">?</span></label>
                             <input type="number" id="bankInterest" value="6.0" step="0.1">
                         </div>
                         <div class="input-group">
-                            <label for="investmentReturn">Anlagezins p.a. (%) <span class="tooltip" title="Rendite, die du erhältst, wenn du gespartes Geld (z.B. beim Leasing/Abo) am Kapitalmarkt anlegst">?</span></label>
+                            <label for="investmentReturn">Anlagezins p.a. (%) <span class="tooltip" data-tooltip="Rendite, die du erhältst, wenn du gespartes Geld (z.B. beim Leasing/Abo) am Kapitalmarkt anlegst">?</span></label>
                             <input type="number" id="investmentReturn" value="2.0" step="0.1">
                         </div>
                     </div>
@@ -109,34 +109,34 @@
                         <div class="card-body">
                             <div class="data-row neutral">
                                 <span>Veranlagtes Kapital</span>
-                                <span id="out-pr-kapital">0 €</span>
+                                <span id="out-pr-kapital" class="calc-result">0 €</span>
                             </div>
                             <hr class="card-divider">
                             <div class="data-row positive">
                                 <span>Kautions-Rückgewähr (1,5%)</span>
-                                <span id="out-pr-kaut">+ 0 €</span>
+                                <span id="out-pr-kaut" class="calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row positive">
                                 <span>Pool-Bonus (7% p.a.)</span>
-                                <span id="out-pr-pool">+ 0 €</span>
+                                <span id="out-pr-pool" class="calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span>Service Fee</span>
-                                <span id="out-pr-service">- 0 €</span>
+                                <span id="out-pr-service" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span>Kreditzinsen (Kaution)</span>
-                                <span id="out-pr-interest">- 0 €</span>
+                                <span id="out-pr-interest" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row positive v2g-row">
                                 <span>V2G Ertrag p.M.</span>
-                                <span class="out-v2g">+ 0 €</span>
+                                <span class="out-v2g calc-result">+ 0 €</span>
                             </div>
                         </div>
                         <div class="card-footer" style="flex-direction: column; gap: 1rem; align-items: stretch;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                                 <span>Mtl. Nettogewinn</span>
-                                <span id="out-pr-netto" class="total-value highlight">+ 0 €</span>
+                                <span id="out-pr-netto" class="calc-result" class="total-value highlight">+ 0 €</span>
                             </div>
                             <a href="mailto:info@phoenix-rent.ag?subject=Anfrage%20Ertragsrechner" class="btn-cta">🚀 Jetzt Beratung anfordern</a>
                         </div>
@@ -162,26 +162,26 @@
                         <div class="card-body">
                             <div class="data-row neutral">
                                 <span>Veranlagtes Kapital</span>
-                                <span id="out-nl-kapital">0 €</span>
+                                <span id="out-nl-kapital" class="calc-result">0 €</span>
                             </div>
                             <hr class="card-divider">
                             <div class="data-row positive">
                                 <span>Anlageertrag p.M.</span>
-                                <span id="out-nl-invest">+ 0 €</span>
+                                <span id="out-nl-invest" class="calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span>Leasingrate mtl.</span>
-                                <span id="out-nl-rate">- 0 €</span>
+                                <span id="out-nl-rate" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row positive v2g-row">
                                 <span>V2G Ertrag p.M.</span>
-                                <span class="out-v2g">+ 0 €</span>
+                                <span class="out-v2g calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row empty" id="row-nl-empty"><span></span><span></span></div>
                         </div>
                         <div class="card-footer">
                             <span>Mtl. Nettogewinn</span>
-                            <span id="out-nl-netto" class="total-value">- 0 €</span>
+                            <span id="out-nl-netto" class="calc-result" class="total-value">- 0 €</span>
                         </div>
                         <div class="card-note">Auto wird am Ende zurückgegeben</div>
                     </div>
@@ -202,26 +202,26 @@
                         <div class="card-body">
                             <div class="data-row neutral">
                                 <span>Veranlagtes Kapital</span>
-                                <span id="out-abo-kapital">0 €</span>
+                                <span id="out-abo-kapital" class="calc-result">0 €</span>
                             </div>
                             <hr class="card-divider">
                             <div class="data-row positive">
                                 <span>Anlageertrag p.M.</span>
-                                <span id="out-abo-invest">+ 0 €</span>
+                                <span id="out-abo-invest" class="calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span>Abo-Rate (All-Incl.)</span>
-                                <span id="out-abo-rate">- 0 €</span>
+                                <span id="out-abo-rate" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row positive v2g-row">
                                 <span>V2G Ertrag p.M.</span>
-                                <span class="out-v2g">+ 0 €</span>
+                                <span class="out-v2g calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row empty" id="row-abo-empty"><span></span><span></span></div>
                         </div>
                         <div class="card-footer">
                             <span>Mtl. Nettogewinn</span>
-                            <span id="out-abo-netto" class="total-value">- 0 €</span>
+                            <span id="out-abo-netto" class="calc-result" class="total-value">- 0 €</span>
                         </div>
                         <div class="card-note">Auto wird am Ende zurückgegeben</div>
                     </div>
@@ -252,33 +252,33 @@
                         <div class="card-body">
                             <div class="data-row neutral">
                                 <span>Veranlagtes Kapital</span>
-                                <span id="out-bk-kapital">0 €</span>
+                                <span id="out-bk-kapital" class="calc-result">0 €</span>
                             </div>
                             <hr class="card-divider">
                             <div class="data-row positive">
                                 <span>Anlageertrag p.M.</span>
-                                <span id="out-bk-invest">+ 0 €</span>
+                                <span id="out-bk-invest" class="calc-result">+ 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span id="lbl-tax-ins">Steuer & Vers. p.M. (Auto)</span>
-                                <span id="out-bk-taxins">- 0 €</span>
+                                <span id="out-bk-taxins" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row negative" id="row-bk-rep" style="display:none;">
                                 <span>Reparatur & TÜV p.M.</span>
-                                <span id="out-bk-rep">- 0 €</span>
+                                <span id="out-bk-rep" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row negative">
                                 <span>Wertverlust (20% p.a.) p.M.</span>
-                                <span id="out-bk-wertverlust">- 0 €</span>
+                                <span id="out-bk-wertverlust" class="calc-result">- 0 €</span>
                             </div>
                             <div class="data-row positive v2g-row">
                                 <span>V2G Ertrag p.M.</span>
-                                <span class="out-v2g">+ 0 €</span>
+                                <span class="out-v2g calc-result">+ 0 €</span>
                             </div>
                         </div>
                         <div class="card-footer">
                             <span>Mtl. Nettogewinn</span>
-                            <span id="out-bk-netto" class="total-value">- 0 €</span>
+                            <span id="out-bk-netto" class="calc-result" class="total-value">- 0 €</span>
                         </div>
                         <div class="card-note">Auto gehört dir (inkl. Risiko)</div>
                     </div>
@@ -328,5 +328,13 @@
     </div>
     <!-- Load obfuscated logic -->
     <script src="app.obf.js"></script>
+
+    <!-- Popover -->
+    <div id="calc-popover">
+        <button class="popover-close" id="popover-close">✖</button>
+        <div class="popover-title" id="popover-title"></div>
+        <div class="popover-prose" id="popover-prose"></div>
+        <div class="popover-formula" id="popover-formula"></div>
+    </div>
 </body>
 </html>

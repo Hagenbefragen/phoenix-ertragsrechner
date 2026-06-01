@@ -588,6 +588,126 @@ input:checked + .slider:before {
     padding: 1rem;
 }
 
+/* Calc Popover & Custom Tooltips */
+.calc-result {
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+    transition: all 0.2s ease;
+}
+.calc-result:hover {
+    border-bottom-color: var(--gold);
+    color: var(--gold);
+}
+
+#calc-popover {
+    position: absolute;
+    z-index: 1000;
+    width: 320px;
+    background: rgba(15, 20, 30, 0.95);
+    border: 1px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8), 0 0 15px rgba(212,175,55,0.2);
+    border-radius: 12px;
+    padding: 1.2rem;
+    color: var(--text-main);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+#calc-popover.visible {
+    display: block;
+    opacity: 1;
+}
+#calc-popover.mobile-active {
+    pointer-events: auto;
+}
+.popover-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+}
+.popover-close:hover {
+    color: #fff;
+}
+#calc-popover.mobile-active .popover-close {
+    display: block;
+}
+.popover-prose {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+.popover-formula {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+    background: rgba(0,0,0,0.4);
+    padding: 0.6rem;
+    border-radius: 6px;
+    word-break: break-word;
+}
+.popover-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.3rem;
+    padding-right: 20px;
+}
+
+/* Fix Header Tooltips */
+.tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--border-color);
+    font-size: 0.7rem;
+    color: var(--text-main);
+    cursor: help;
+    position: relative;
+}
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    background: rgba(15, 20, 30, 0.95);
+    border: 1px solid var(--gold);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: left;
+    white-space: normal;
+    font-weight: 400;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 100;
+}
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Print Styles */
 @media print {
     body {
