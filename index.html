@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Rent | Ertragsrechner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" class="phoenix-logo" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                    <path d="M50 20 Q 70 40 50 80 Q 30 60 50 20 Z" fill="#D4AF37"/>
+                    <path d="M40 45 Q 20 50 30 70 Q 40 60 40 45 Z" fill="#D4AF37"/>
+                    <path d="M60 45 Q 80 50 70 70 Q 60 60 60 45 Z" fill="#D4AF37"/>
+                </svg>
+                <h1>PHOENIX RENT <span class="subtitle">Ertragsrechner (4 Säulen Modell)</span></h1>
+            </div>
+            <div class="market-toggle">
+                <span class="active" id="btn-at">Österreich</span>
+                <span id="btn-de">Deutschland</span>
+            </div>
+        </header>
+
+        <!-- Global Inputs (Top Bar) -->
+        <section class="global-inputs glass-panel">
+            <div class="input-section">
+                <h3>Grunddaten & Anlage</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="carValue">Listenpreis / Kaution (€)</label>
+                        <input type="number" id="carValue" value="50000" step="1000">
+                    </div>
+                    <div class="input-group">
+                        <label for="bankInterest">Bankzins p.a. (%)</label>
+                        <input type="number" id="bankInterest" value="6.0" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="investmentReturn">Anlagezins p.a. (%)</label>
+                        <input type="number" id="investmentReturn" value="2.0" step="0.1">
+                    </div>
+                </div>
+            </div>
+            <div class="input-section">
+                <h3>Fahrzeug Details</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="motorKw">Leistung (kW)</label>
+                        <input type="number" id="motorKw" value="150" step="10">
+                    </div>
+                    <div class="input-group">
+                        <label for="isElectric">Fahrzeugtyp</label>
+                        <select id="isElectric">
+                            <option value="yes" selected>Elektroauto</option>
+                            <option value="no">Verbrenner</option>
+                        </select>
+                    </div>
+                    <div class="input-group v2g-input">
+                        <label for="batteryCap">Akku (kWh)</label>
+                        <input type="number" id="batteryCap" value="80" step="5">
+                    </div>
+                    <div class="input-group v2g-input">
+                        <label for="chargeSpeed">Ladeleistung</label>
+                        <select id="chargeSpeed">
+                            <option value="11">11 kW</option>
+                            <option value="22" selected>22 kW</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <section class="results-area">
+                
+                <!-- Financial Comparison -->
+                <div class="comparison-grid">
+                    
+                    <!-- 1. Phoenix Rent Card -->
+                    <div class="card phoenix-card glass-panel glowing">
+                        <div class="card-header">
+                            <h3>Phoenix-Rent</h3>
+                            <span class="badge">100% Finanziert</span>
+                        </div>
+                        <div class="card-inputs">
+                            <div class="input-placeholder">Keine Anzahlung nötig. Volle Flexibilität.</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="data-row neutral">
+                                <span>Veranlagtes Kapital</span>
+                                <span id="out-pr-kapital">0 €</span>
+                            </div>
+                            <hr class="card-divider">
+                            <div class="data-row positive">
+                                <span>Kautions-Rückgewähr (1,5%)</span>
+                                <span id="out-pr-kaut">+ 0 €</span>
+                            </div>
+                            <div class="data-row positive">
+                                <span>Pool-Bonus (7% p.a.)</span>
+                                <span id="out-pr-pool">+ 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span>Service Fee</span>
+                                <span id="out-pr-service">- 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span>Kreditzinsen (Kaution)</span>
+                                <span id="out-pr-interest">- 0 €</span>
+                            </div>
+                            <div class="data-row positive v2g-row">
+                                <span>V2G Ertrag p.M.</span>
+                                <span class="out-v2g">+ 0 €</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span>Mtl. Nettogewinn</span>
+                            <span id="out-pr-netto" class="total-value highlight">+ 0 €</span>
+                        </div>
+                        <div class="card-note">Tausch gegen Neuwagen alle 12 Monate</div>
+                    </div>
+
+                    <!-- 2. Normal Leasing Card -->
+                    <div class="card leasing-card glass-panel">
+                        <div class="card-header">
+                            <h3>Leasing</h3>
+                            <span class="badge gray">Teil-Veranlagung</span>
+                        </div>
+                        <div class="card-inputs">
+                            <div class="input-group-inline">
+                                <label>Anzahlung (€)</label>
+                                <input type="number" id="leasingAnzahlung" value="5000" step="500">
+                            </div>
+                            <div class="input-group-inline">
+                                <label>Mtl. Leasingrate (€)</label>
+                                <input type="number" id="leasingRate" value="700" step="10">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="data-row neutral">
+                                <span>Veranlagtes Kapital</span>
+                                <span id="out-nl-kapital">0 €</span>
+                            </div>
+                            <hr class="card-divider">
+                            <div class="data-row positive">
+                                <span>Anlageertrag p.M.</span>
+                                <span id="out-nl-invest">+ 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span>Leasingrate mtl.</span>
+                                <span id="out-nl-rate">- 0 €</span>
+                            </div>
+                            <div class="data-row positive v2g-row">
+                                <span>V2G Ertrag p.M.</span>
+                                <span class="out-v2g">+ 0 €</span>
+                            </div>
+                            <div class="data-row empty" id="row-nl-empty"><span></span><span></span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span>Mtl. Nettogewinn</span>
+                            <span id="out-nl-netto" class="total-value">- 0 €</span>
+                        </div>
+                        <div class="card-note">Auto wird am Ende zurückgegeben</div>
+                    </div>
+
+                    <!-- 3. Langzeitmiete Card -->
+                    <div class="card abo-card glass-panel">
+                        <div class="card-header">
+                            <h3>Auto-Abo</h3>
+                            <span class="badge gray">Voll-Veranlagung</span>
+                        </div>
+                        <div class="card-inputs">
+                            <div class="input-group-inline">
+                                <label>Mtl. Abo-Rate (€)</label>
+                                <input type="number" id="aboRate" value="800" step="10">
+                            </div>
+                            <div class="input-placeholder empty-ph"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="data-row neutral">
+                                <span>Veranlagtes Kapital</span>
+                                <span id="out-abo-kapital">0 €</span>
+                            </div>
+                            <hr class="card-divider">
+                            <div class="data-row positive">
+                                <span>Anlageertrag p.M.</span>
+                                <span id="out-abo-invest">+ 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span>Abo-Rate (All-Incl.)</span>
+                                <span id="out-abo-rate">- 0 €</span>
+                            </div>
+                            <div class="data-row positive v2g-row">
+                                <span>V2G Ertrag p.M.</span>
+                                <span class="out-v2g">+ 0 €</span>
+                            </div>
+                            <div class="data-row empty" id="row-abo-empty"><span></span><span></span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span>Mtl. Nettogewinn</span>
+                            <span id="out-abo-netto" class="total-value">- 0 €</span>
+                        </div>
+                        <div class="card-note">Auto wird am Ende zurückgegeben</div>
+                    </div>
+
+                    <!-- 4. Barkauf Card -->
+                    <div class="card kauf-card glass-panel">
+                        <div class="card-header">
+                            <h3>Barkauf</h3>
+                            <span class="badge gray">Rest-Veranlagung</span>
+                        </div>
+                        <div class="card-inputs">
+                            <div class="input-group-inline">
+                                <label>Kauf-Rabatt (%)</label>
+                                <input type="number" id="kaufRabatt" value="10.0" step="0.5">
+                            </div>
+                            <div class="input-group-inline toggle-box">
+                                <label class="switch-label">
+                                    <input type="checkbox" id="isGebraucht">
+                                    <span class="slider"></span>
+                                </label>
+                                <span>Gebrauchtwagen</span>
+                            </div>
+                            <div class="input-group-inline rep-input" id="repInputWrap" style="display:none;">
+                                <label>Reparatur/TÜV mtl. (€)</label>
+                                <input type="number" id="kaufReparatur" value="80" step="5">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="data-row neutral">
+                                <span>Veranlagtes Kapital</span>
+                                <span id="out-bk-kapital">0 €</span>
+                            </div>
+                            <hr class="card-divider">
+                            <div class="data-row positive">
+                                <span>Anlageertrag p.M.</span>
+                                <span id="out-bk-invest">+ 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span id="lbl-tax-ins">Steuer & Vers. p.M. (Auto)</span>
+                                <span id="out-bk-taxins">- 0 €</span>
+                            </div>
+                            <div class="data-row negative" id="row-bk-rep" style="display:none;">
+                                <span>Reparatur & TÜV p.M.</span>
+                                <span id="out-bk-rep">- 0 €</span>
+                            </div>
+                            <div class="data-row negative">
+                                <span>Wertverlust (20% p.a.) p.M.</span>
+                                <span id="out-bk-wertverlust">- 0 €</span>
+                            </div>
+                            <div class="data-row positive v2g-row">
+                                <span>V2G Ertrag p.M.</span>
+                                <span class="out-v2g">+ 0 €</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span>Mtl. Nettogewinn</span>
+                            <span id="out-bk-netto" class="total-value">- 0 €</span>
+                        </div>
+                        <div class="card-note">Auto gehört dir (inkl. Risiko)</div>
+                    </div>
+
+                </div>
+
+                <!-- V2G Analysis Section -->
+                <div class="v2g-section glass-panel" id="v2g-wrapper">
+                    <div class="v2g-header">
+                        <h2>E-Auto Vehicle-to-Grid Analyse</h2>
+                        <div class="api-info-wrapper" style="text-align: right;">
+                            <div class="api-status" id="api-status">
+                                <div class="spinner"></div> Lade Awattar EEX Marktdaten...
+                            </div>
+                            <div class="api-info" id="api-info" style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="v2g-content">
+                        <div class="v2g-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Durchschn. Ladepreis</span>
+                                <span class="stat-val" id="stat-charge-price">0.00 ct/kWh</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Durchschn. Verkaufspreis</span>
+                                <span class="stat-val" id="stat-discharge-price">0.00 ct/kWh</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Max. Zyklen pro Tag</span>
+                                <span class="stat-val" id="stat-cycles">1</span>
+                            </div>
+                            <div class="stat-box highlight-box">
+                                <span class="stat-label">Theoretischer Jahresgewinn</span>
+                                <span class="stat-val mega" id="stat-yearly-profit">0 €</span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="v2gChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <script src="app.obf.js"></script>
+</body>
+</html>
