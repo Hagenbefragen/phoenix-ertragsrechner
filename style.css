@@ -22,8 +22,11 @@ body {
     font-family: var(--font-sans);
     background-color: var(--bg-color);
     background-image: 
-        radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.05), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(50, 60, 100, 0.1), transparent 25%);
+        linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.95)),
+        url('bg_car.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
